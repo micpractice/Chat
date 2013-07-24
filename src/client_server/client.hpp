@@ -28,17 +28,17 @@ private:
     int m_socket;
     int m_connect;
   //bool m_status;
-	//bool m_connect;
+    //bool m_connect;
     char* m_ip;
     int m_port;
     //std::string m_buffer;
 public:
-	client (int port, char* ip,);
+    client (int port, char* ip);
     bool create_socket();
     bool connect_socket();
     int send_all(int m_socket, std::string* msg,int len, int flags);
     int recv_all(int m_socket, std::string *msg, int len, int flags);
-	int close_socket(m_socket);
+    int close_socket(int m_socket);
     //void run_all();
 };
 
