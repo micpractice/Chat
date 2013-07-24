@@ -2,7 +2,7 @@
 #include "client.h"
 
 
-mic::client_server::client::client(int port, char* ip,):m_socket(0), m_connect(0), m_ip(ip), m_port(port)
+mic::client_server::client::client(int port, char* ip):m_socket(0), m_connect(0), m_ip(ip), m_port(port)
 {
     //m_socket = socket(AF_INET, SOCK_STREAM, 0);
     bzero (&m_addr, sizeof(m_addr));
@@ -33,7 +33,7 @@ bool mic::client_server::client::connect_socket()
 int mic::client_server::client::send_all(int m_socket, std::string *msg, int len, int flags)
 {
     assert(msg != NULL);
-    if (create_socket_status() && connect_socket_status())
+    if (create_socket() && connect_socket())
     {
         int total = 0;
         int n;
@@ -52,7 +52,7 @@ int mic::client_server::client::send_all(int m_socket, std::string *msg, int len
 int mic::client_server::client::recv_all(int m_socket, std::string *msg, int len, int flags)
 {
     assert(msg != NULL);
-    if (create_socket_status() && connect_socket_status())
+    if (create_socket() && connect_socket())
     {
         int total = 0;
         int n;
@@ -67,13 +67,13 @@ int mic::client_server::client::recv_all(int m_socket, std::string *msg, int len
     }
 }
 
-int mic::client_server::client::close_socket(m_socket)
+int mic::client_server::client::close_socket(int m_socket)
 {
-  if (connect_socket)
-	{	
-		shutdown (m_socket, 2);
-		close (m_socket);
-	}
+    if (connect_socket())
+    {
+        shutdown (m_socket, 2);
+        close (m_socket);
+    }
 
-	close (m_socket);
+    close (m_socket);
 }
